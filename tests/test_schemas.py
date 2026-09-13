@@ -48,3 +48,33 @@ def test_missing_answer_is_rejected():
     }
     with pytest.raises(ValidationError):
         SupportResponse.model_validate(payload)
+
+
+def test_empty_answer_is_rejected():
+    payload = {**HAPPY_PATH_PAYLOAD, "answer": "   "}
+    with pytest.raises(ValidationError):
+        SupportResponse.model_validate(payload)
+
+
+def test_empty_action_description_is_rejected():
+    payload = {
+        **HAPPY_PATH_PAYLOAD,
+        "actions": [{"type": "none", "description": ""}],
+    }
+    with pytest.raises(ValidationError):
+        SupportResponse.model_validate(payload)
+
+
+def test_extra_action_fields_are_rejected():
+    payload = {
+        **HAPPY_PATH_PAYLOAD,
+        "actions": [
+            {
+                "type": "none",
+                "description": "No additional support action is required.",
+                "priority": "high",
+            }
+        ],
+    }
+    with pytest.raises(ValidationError):
+        SupportResponse.model_validate(payload)
