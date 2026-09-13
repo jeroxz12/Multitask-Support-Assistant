@@ -65,6 +65,12 @@ def test_empty_action_description_is_rejected():
         SupportResponse.model_validate(payload)
 
 
+def test_extra_fields_are_rejected():
+    payload = {**HAPPY_PATH_PAYLOAD, "notes": "extra"}
+    with pytest.raises(ValidationError):
+        SupportResponse.model_validate(payload)
+
+
 def test_extra_action_fields_are_rejected():
     payload = {
         **HAPPY_PATH_PAYLOAD,
