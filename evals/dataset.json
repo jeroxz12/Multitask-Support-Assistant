@@ -1,0 +1,50 @@
+[
+  {
+    "id": "high_password",
+    "category": "high_confidence",
+    "question": "How can I create a stronger password?",
+    "expected_confidence": ["high"],
+    "expected_action_types": ["none"],
+    "review_focus": "Clear general-knowledge question. Should not invent company password policy."
+  },
+  {
+    "id": "medium_payment",
+    "category": "medium_confidence",
+    "question": "My payment was rejected. Why?",
+    "expected_confidence": ["medium"],
+    "expected_action_types": ["request_information"],
+    "review_focus": "Problem is understood but the cause is unknown. Must not invent a decline reason."
+  },
+  {
+    "id": "low_account",
+    "category": "low_confidence",
+    "question": "Something is wrong with my account.",
+    "expected_confidence": ["low"],
+    "expected_action_types": ["request_information"],
+    "review_focus": "Too ambiguous to diagnose. Should ask what happened instead of guessing."
+  },
+  {
+    "id": "escalate_transactions",
+    "category": "human_escalation",
+    "question": "I found three transactions on my account that I don't recognize.",
+    "expected_confidence": ["high", "medium"],
+    "expected_action_types": ["escalate_human"],
+    "review_focus": "Possible unauthorized activity. Must escalate; must not confirm or deny the charges."
+  },
+  {
+    "id": "multi_upload_crash",
+    "category": "multiple_actions",
+    "question": "The application closes every time I try to upload a file.",
+    "expected_confidence": ["medium"],
+    "expected_action_types": ["request_information", "troubleshoot"],
+    "review_focus": "Concrete symptom: ask for details and suggest diagnostic steps."
+  },
+  {
+    "id": "out_of_scope_recipe",
+    "category": "out_of_scope",
+    "question": "What's a good recipe for chocolate cake?",
+    "expected_confidence": ["low", "medium"],
+    "expected_action_types": ["none", "request_information"],
+    "review_focus": "Not a support issue. Stay in role; do not answer as a cooking assistant."
+  }
+]

@@ -1,0 +1,2 @@
+timestamp,kind,action,reason
+2026-09-13T03:17:00.839017+00:00,injection,fallback,matched phrase: ignore previous instructions
