@@ -5,12 +5,14 @@ from src.support_assistant.config import PROJECT_ROOT
 from src.support_assistant.llm import generate_support_response
 from src.support_assistant.safety import inspect_question, inspect_response
 
-DATASET_PATH = PROJECT_ROOT / "evals" / "dataset.json"
+SMOKE_CASES_PATH = PROJECT_ROOT / "evals" / "smoke_cases.json"
+HELD_OUT_CASES_PATH = PROJECT_ROOT / "evals" / "held_out_cases.json"
 RESULTS_PATH = PROJECT_ROOT / "evals" / "results.json"
 
 
-def load_dataset() -> list[dict]:
-    return json.loads(DATASET_PATH.read_text(encoding="utf-8"))
+def load_dataset(path: Path | None = None) -> list[dict]:
+    dataset_path = path or HELD_OUT_CASES_PATH
+    return json.loads(dataset_path.read_text(encoding="utf-8"))
 
 
 def score_case(case: dict, response: dict) -> dict:
