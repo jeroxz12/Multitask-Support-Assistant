@@ -17,8 +17,8 @@ def test_cost_for_mixed_tokens():
     assert cost == pytest.approx(expected)
 
 
-def test_unknown_model_cost_is_zero():
-    assert estimate_cost_usd("unknown-model", 1000, 1000) == 0.0
+def test_unknown_model_cost_is_unavailable():
+    assert estimate_cost_usd("unknown-model", 1000, 1000) is None
 
 
 def test_persist_run_writes_success_row(tmp_path, monkeypatch):
@@ -35,9 +35,32 @@ def test_persist_run_writes_success_row(tmp_path, monkeypatch):
     )
 
     content = metrics_file.read_text(encoding="utf-8")
-    assert "timestamp" in content
+    header = content.splitlines()[0]
+    assert header == (
+        "timestamp,status,model,tokens_prompt,tokens_completion,"
+        "total_tokens,latency_ms,estimated_cost_usd"
+    )
     assert "success" in content
     assert "gpt-4o-mini" in content
     assert "1000" in content
     assert "80" in content
     assert "1080" in content
+    assert "0.00019800" in content
+
+
+def test_persist_run_writes_unavailable_cost_for_unknown_model(tmp_path, monkeypatch):
+    metrics_file = tmp_path / "metrics.csv"
+    monkeypatch.setattr("src.support_assistant.metrics.METRICS_PATH", metrics_file)
+
+    persist_run(
+        status="success",
+        model="unknown-model",
+        input_tokens=1000,
+        output_tokens=80,
+        total_tokens=1080,
+        latency_ms=10.0,
+    )
+
+    content = metrics_file.read_text(encoding="utf-8")
+    assert "unavailable" in content
+    assert "unknown-model" in content

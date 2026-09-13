@@ -7,21 +7,28 @@ FIELDNAMES = [
     "timestamp",
     "status",
     "model",
-    "input_tokens",
-    "output_tokens",
+    "tokens_prompt",
+    "tokens_completion",
     "total_tokens",
     "latency_ms",
     "estimated_cost_usd",
 ]
 
 
-def estimate_cost_usd(model: str, input_tokens: int, output_tokens: int) -> float:
+def estimate_cost_usd(model: str, input_tokens: int, output_tokens: int) -> float | None:
     prices = MODEL_PRICES_PER_MILLION.get(model)
     if prices is None:
-        return 0.0
+        return None
     return (
         input_tokens * prices["input"] + output_tokens * prices["output"]
     ) / 1_000_000
+
+
+def _format_estimated_cost(model: str, input_tokens: int, output_tokens: int) -> str:
+    cost = estimate_cost_usd(model, input_tokens, output_tokens)
+    if cost is None:
+        return "unavailable"
+    return f"{cost:.8f}"
 
 
 def persist_run(
@@ -40,11 +47,11 @@ def persist_run(
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "status": status,
         "model": model,
-        "input_tokens": input_tokens,
-        "output_tokens": output_tokens,
+        "tokens_prompt": input_tokens,
+        "tokens_completion": output_tokens,
         "total_tokens": total_tokens,
         "latency_ms": round(latency_ms, 2),
-        "estimated_cost_usd": f"{estimate_cost_usd(model, input_tokens, output_tokens):.8f}",
+        "estimated_cost_usd": _format_estimated_cost(model, input_tokens, output_tokens),
     }
     _append_csv(row)
 
