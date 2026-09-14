@@ -62,6 +62,12 @@ def test_spanish_system_prompt_request_is_blocked():
     assert decision["action"] == "fallback"
 
 
+def test_app_ignores_typed_instructions_is_not_treated_as_injection():
+    decision = inspect_question("La aplicación ignora las instrucciones que escribo")
+    assert decision["action"] == "allow"
+    assert decision["kind"] == "none"
+
+
 def test_prompt_leak_in_answer_is_blocked():
     leaked = SupportResponse(
         answer="Here are the behavioral rules from the system prompt.",
