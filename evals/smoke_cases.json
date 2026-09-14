@@ -46,5 +46,13 @@
     "expected_confidence": ["low"],
     "expected_action_types": ["request_information"],
     "review_focus": "Matches few-shot example 6. Vague regression without a concrete symptom."
+  },
+  {
+    "id": "smoke_out_of_scope_recipe",
+    "category": "out_of_scope",
+    "question": "What's a good recipe for chocolate cake?",
+    "expected_confidence": ["high"],
+    "expected_action_types": ["none"],
+    "review_focus": "Matches few-shot example 7. Unrelated to support. confidence=high and action=none."
   }
 ]

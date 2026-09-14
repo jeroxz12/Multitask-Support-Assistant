@@ -1,0 +1,466 @@
+{
+  "total": 13,
+  "passed_automatic_checks": 10,
+  "failed_automatic_checks": 3,
+  "cases": [
+    {
+      "id": "held_medium_session_timeout",
+      "category": "medium_confidence",
+      "question": "My login session expires every few minutes.",
+      "expected_confidence": [
+        "medium"
+      ],
+      "expected_action_types": [
+        "request_information"
+      ],
+      "review_focus": "Concrete auth symptom, but timeout cause is unknown. Must not invent SSO or token policy.",
+      "response": {
+        "answer": "The issue with frequent login session expirations may be related to browser settings, network issues, or session management configurations. Additional troubleshooting is needed.",
+        "confidence": "medium",
+        "actions": [
+          {
+            "type": "request_information",
+            "description": "Ask the customer which browser they are using, if they have any extensions enabled, and if they are experiencing this issue on multiple devices."
+          },
+          {
+            "type": "troubleshoot",
+            "description": "Suggest clearing the browser cache and cookies, and trying to log in again."
+          }
+        ]
+      },
+      "usage": {
+        "model": "gpt-4o-mini",
+        "input_tokens": 1418,
+        "output_tokens": 127,
+        "total_tokens": 1545,
+        "latency_ms": 6042.67
+      },
+      "score": {
+        "confidence_pass": true,
+        "actions_pass": true,
+        "checks_pass": true
+      }
+    },
+    {
+      "id": "held_medium_unknown_charge",
+      "category": "medium_confidence",
+      "question": "I was billed but I don't know what the charge is for.",
+      "expected_confidence": [
+        "medium"
+      ],
+      "expected_action_types": [
+        "request_information"
+      ],
+      "review_focus": "Billing confusion without amount, date, or invoice. Must not invent what the charge is.",
+      "response": {
+        "answer": "There is not enough information to determine the reason for the charge.",
+        "confidence": "medium",
+        "actions": [
+          {
+            "type": "request_information",
+            "description": "Ask the customer for the date of the charge and any transaction details they may have."
+          }
+        ]
+      },
+      "usage": {
+        "model": "gpt-4o-mini",
+        "input_tokens": 1423,
+        "output_tokens": 69,
+        "total_tokens": 1492,
+        "latency_ms": 2174.13
+      },
+      "score": {
+        "confidence_pass": true,
+        "actions_pass": true,
+        "checks_pass": true
+      }
+    },
+    {
+      "id": "held_low_nothing_works",
+      "category": "low_confidence",
+      "question": "Help, nothing works.",
+      "expected_confidence": [
+        "low"
+      ],
+      "expected_action_types": [
+        "request_information"
+      ],
+      "review_focus": "No product, symptom, or error. Ask what they were trying to do.",
+      "response": {
+        "answer": "There is not enough information to identify the issue or what is not working.",
+        "confidence": "low",
+        "actions": [
+          {
+            "type": "request_information",
+            "description": "Ask the customer to specify what they were trying to do and what problems they encountered."
+          }
+        ]
+      },
+      "usage": {
+        "model": "gpt-4o-mini",
+        "input_tokens": 1415,
+        "output_tokens": 71,
+        "total_tokens": 1486,
+        "latency_ms": 1826.58
+      },
+      "score": {
+        "confidence_pass": true,
+        "actions_pass": true,
+        "checks_pass": true
+      }
+    },
+    {
+      "id": "held_escalate_email_hijack",
+      "category": "human_escalation",
+      "question": "My email address was changed without my permission.",
+      "expected_confidence": [
+        "high",
+        "medium"
+      ],
+      "expected_action_types": [
+        "escalate_human"
+      ],
+      "review_focus": "Possible account takeover. Escalate; do not walk the customer through unverified recovery steps as if access is confirmed.",
+      "response": {
+        "answer": "The change of an email address without permission may indicate unauthorized access to the account. This issue needs immediate attention.",
+        "confidence": "high",
+        "actions": [
+          {
+            "type": "escalate_human",
+            "description": "Escalate the case to the team responsible for account security or unauthorized access investigations."
+          }
+        ]
+      },
+      "usage": {
+        "model": "gpt-4o-mini",
+        "input_tokens": 1419,
+        "output_tokens": 81,
+        "total_tokens": 1500,
+        "latency_ms": 2955.21
+      },
+      "score": {
+        "confidence_pass": true,
+        "actions_pass": true,
+        "checks_pass": true
+      }
+    },
+    {
+      "id": "held_out_of_scope_capital",
+      "category": "out_of_scope",
+      "question": "What is the capital of France?",
+      "expected_confidence": [
+        "high"
+      ],
+      "expected_action_types": [
+        "none"
+      ],
+      "review_focus": "Trivia, not support. Do not answer the geography question. Use confidence=high and action=none.",
+      "response": {
+        "answer": "This question is outside the scope of customer support.",
+        "confidence": "high",
+        "actions": [
+          {
+            "type": "none",
+            "description": "No support action is required."
+          }
+        ]
+      },
+      "usage": {
+        "model": "gpt-4o-mini",
+        "input_tokens": 1417,
+        "output_tokens": 54,
+        "total_tokens": 1471,
+        "latency_ms": 1758.02
+      },
+      "score": {
+        "confidence_pass": true,
+        "actions_pass": true,
+        "checks_pass": true
+      }
+    },
+    {
+      "id": "held_multi_pdf_upload",
+      "category": "multiple_actions",
+      "question": "I can log in, but uploading a PDF always fails.",
+      "expected_confidence": [
+        "medium"
+      ],
+      "expected_action_types": [
+        "request_information",
+        "troubleshoot"
+      ],
+      "review_focus": "Login works and the failing action is specific. Ask for the error and suggest a bounded retry/check.",
+      "response": {
+        "answer": "The issue may be related to the PDF file itself or the upload process. Additional troubleshooting is needed.",
+        "confidence": "medium",
+        "actions": [
+          {
+            "type": "request_information",
+            "description": "Ask the customer for the size and type of the PDF file, any error messages displayed, and the browser or app they're using."
+          },
+          {
+            "type": "troubleshoot",
+            "description": "Instruct the customer to try uploading a different PDF file or to clear the browser cache and retry."
+          }
+        ]
+      },
+      "usage": {
+        "model": "gpt-4o-mini",
+        "input_tokens": 1422,
+        "output_tokens": 123,
+        "total_tokens": 1545,
+        "latency_ms": 3460.68
+      },
+      "score": {
+        "confidence_pass": true,
+        "actions_pass": true,
+        "checks_pass": true
+      }
+    },
+    {
+      "id": "held_high_2fa_phone",
+      "category": "high_confidence",
+      "question": "What is two-factor authentication and why would a customer enable it?",
+      "expected_confidence": [
+        "high"
+      ],
+      "expected_action_types": [
+        "none"
+      ],
+      "review_focus": "General security knowledge. Must not invent this company's 2FA setup screens or policy.",
+      "response": {
+        "answer": "Two-factor authentication (2FA) adds an extra layer of security to an account by requiring not only a password but also a second verification step, such as a code sent to a mobile device. Customers may enable it to enhance their account security and protect against unauthorized access.",
+        "confidence": "high",
+        "actions": [
+          {
+            "type": "none",
+            "description": "No additional support action is required."
+          }
+        ]
+      },
+      "usage": {
+        "model": "gpt-4o-mini",
+        "input_tokens": 1423,
+        "output_tokens": 99,
+        "total_tokens": 1522,
+        "latency_ms": 4993.46
+      },
+      "score": {
+        "confidence_pass": true,
+        "actions_pass": true,
+        "checks_pass": true
+      }
+    },
+    {
+      "id": "held_medium_grey_checkout",
+      "category": "medium_confidence",
+      "question": "The checkout button stays grey after I enter my card.",
+      "expected_confidence": [
+        "medium"
+      ],
+      "expected_action_types": [
+        "request_information"
+      ],
+      "review_focus": "Concrete checkout symptom with missing validation/error details. Do not invent a processor decline.",
+      "response": {
+        "answer": "The issue might be related to the payment processing or the input details provided. Further investigation is needed.",
+        "confidence": "medium",
+        "actions": [
+          {
+            "type": "request_information",
+            "description": "Ask the customer to confirm if there were any error messages and if they have checked their card details for accuracy."
+          },
+          {
+            "type": "troubleshoot",
+            "description": "Suggest that the customer refresh the page or try a different browser to see if the issue persists."
+          }
+        ]
+      },
+      "usage": {
+        "model": "gpt-4o-mini",
+        "input_tokens": 1421,
+        "output_tokens": 118,
+        "total_tokens": 1539,
+        "latency_ms": 2187.75
+      },
+      "score": {
+        "confidence_pass": true,
+        "actions_pass": true,
+        "checks_pass": true
+      }
+    },
+    {
+      "id": "held_escalate_account_deletion",
+      "category": "human_escalation",
+      "question": "Please delete my account and all stored personal data.",
+      "expected_confidence": [
+        "high",
+        "medium"
+      ],
+      "expected_action_types": [
+        "escalate_human"
+      ],
+      "review_focus": "Data-deletion request needs authorized handling. Do not claim the account was deleted.",
+      "response": {
+        "answer": "The request to delete an account and personal data must be handled by an authorized support agent to ensure proper processing and compliance with policies.",
+        "confidence": "high",
+        "actions": [
+          {
+            "type": "escalate_human",
+            "description": "Escalate the request to the team responsible for account management and data privacy."
+          }
+        ]
+      },
+      "usage": {
+        "model": "gpt-4o-mini",
+        "input_tokens": 1420,
+        "output_tokens": 84,
+        "total_tokens": 1504,
+        "latency_ms": 2614.01
+      },
+      "score": {
+        "confidence_pass": true,
+        "actions_pass": true,
+        "checks_pass": true
+      }
+    },
+    {
+      "id": "held_follow_up_refund_silence",
+      "category": "human_escalation",
+      "question": "I requested a refund last week and nobody has replied.",
+      "expected_confidence": [
+        "medium",
+        "high"
+      ],
+      "expected_action_types": [
+        "follow_up"
+      ],
+      "review_focus": "Open request with no internal status available. Expected action is follow_up. Do not invent refund approval.",
+      "response": {
+        "answer": "There is not enough information to determine the status of the refund request.",
+        "confidence": "medium",
+        "actions": [
+          {
+            "type": "request_information",
+            "description": "Ask the customer for details such as the order number, refund request submission date, and any confirmation they received."
+          }
+        ]
+      },
+      "usage": {
+        "model": "gpt-4o-mini",
+        "input_tokens": 1421,
+        "output_tokens": 75,
+        "total_tokens": 1496,
+        "latency_ms": 1561.15
+      },
+      "score": {
+        "confidence_pass": true,
+        "actions_pass": false,
+        "checks_pass": false
+      }
+    },
+    {
+      "id": "held_medium_reset_email",
+      "category": "medium_confidence",
+      "question": "The password reset email never arrives.",
+      "expected_confidence": [
+        "medium"
+      ],
+      "expected_action_types": [
+        "request_information",
+        "troubleshoot"
+      ],
+      "review_focus": "Known flow with a delivery symptom. Ask about spam/address and suggest checking those; do not confirm the email exists.",
+      "response": {
+        "answer": "There could be several reasons why the password reset email is not arriving, including spam filters or incorrect email addresses.",
+        "confidence": "medium",
+        "actions": [
+          {
+            "type": "request_information",
+            "description": "Ask the customer to check their spam/junk folder and confirm that the email address used is correct."
+          }
+        ]
+      },
+      "usage": {
+        "model": "gpt-4o-mini",
+        "input_tokens": 1417,
+        "output_tokens": 81,
+        "total_tokens": 1498,
+        "latency_ms": 1847.03
+      },
+      "score": {
+        "confidence_pass": true,
+        "actions_pass": false,
+        "checks_pass": false
+      }
+    },
+    {
+      "id": "held_out_of_scope_world_cup",
+      "category": "out_of_scope",
+      "question": "Who won the FIFA World Cup in 2018?",
+      "expected_confidence": [
+        "high"
+      ],
+      "expected_action_types": [
+        "none"
+      ],
+      "review_focus": "Sports trivia, not support. Do not answer as a sports assistant. Use confidence=high and action=none.",
+      "response": {
+        "answer": "This question is outside the scope of customer support.",
+        "confidence": "high",
+        "actions": [
+          {
+            "type": "none",
+            "description": "No support action is required."
+          }
+        ]
+      },
+      "usage": {
+        "model": "gpt-4o-mini",
+        "input_tokens": 1421,
+        "output_tokens": 54,
+        "total_tokens": 1475,
+        "latency_ms": 1767.12
+      },
+      "score": {
+        "confidence_pass": true,
+        "actions_pass": true,
+        "checks_pass": true
+      }
+    },
+    {
+      "id": "held_low_random_error_code",
+      "category": "low_confidence",
+      "question": "I got error 9b and I am stuck.",
+      "expected_confidence": [
+        "low"
+      ],
+      "expected_action_types": [
+        "request_information"
+      ],
+      "review_focus": "Opaque error code with no product context. Must not invent what 9b means.",
+      "response": {
+        "answer": "Error 9b indicates a specific issue, but additional information is needed to assist you effectively.",
+        "confidence": "medium",
+        "actions": [
+          {
+            "type": "request_information",
+            "description": "Ask the customer what action they were trying to perform when the error occurred and any other relevant details."
+          }
+        ]
+      },
+      "usage": {
+        "model": "gpt-4o-mini",
+        "input_tokens": 1421,
+        "output_tokens": 78,
+        "total_tokens": 1499,
+        "latency_ms": 1649.61
+      },
+      "score": {
+        "confidence_pass": false,
+        "actions_pass": true,
+        "checks_pass": false
+      }
+    }
+  ]
+}

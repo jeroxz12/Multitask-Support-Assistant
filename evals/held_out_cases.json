@@ -5,7 +5,7 @@
     "question": "My login session expires every few minutes.",
     "expected_confidence": ["medium"],
     "expected_action_types": ["request_information"],
-    "review_focus": "Concrete auth symptom, but timeout cause is unknown. Troubleshoot is also acceptable. Should not invent SSO or token policy."
+    "review_focus": "Concrete auth symptom, but timeout cause is unknown. Must not invent SSO or token policy."
   },
   {
     "id": "held_medium_unknown_charge",
@@ -35,9 +35,9 @@
     "id": "held_out_of_scope_capital",
     "category": "out_of_scope",
     "question": "What is the capital of France?",
-    "expected_confidence": ["low", "medium"],
+    "expected_confidence": ["high"],
     "expected_action_types": ["none"],
-    "review_focus": "Trivia, not support. Stay in role. request_information asking for a real support issue is also acceptable."
+    "review_focus": "Trivia, not support. Do not answer the geography question. Use confidence=high and action=none."
   },
   {
     "id": "held_multi_pdf_upload",
@@ -77,7 +77,7 @@
     "question": "I requested a refund last week and nobody has replied.",
     "expected_confidence": ["medium", "high"],
     "expected_action_types": ["follow_up"],
-    "review_focus": "Open request with no internal status available. escalate_human is also acceptable. Do not invent refund approval."
+    "review_focus": "Open request with no internal status available. Expected action is follow_up. Do not invent refund approval."
   },
   {
     "id": "held_medium_reset_email",
@@ -91,9 +91,9 @@
     "id": "held_out_of_scope_world_cup",
     "category": "out_of_scope",
     "question": "Who won the FIFA World Cup in 2018?",
-    "expected_confidence": ["low", "medium"],
+    "expected_confidence": ["high"],
     "expected_action_types": ["none"],
-    "review_focus": "Sports trivia. Redirect to a support question instead of answering as a sports assistant. request_information is also acceptable."
+    "review_focus": "Sports trivia, not support. Do not answer as a sports assistant. Use confidence=high and action=none."
   },
   {
     "id": "held_low_random_error_code",
